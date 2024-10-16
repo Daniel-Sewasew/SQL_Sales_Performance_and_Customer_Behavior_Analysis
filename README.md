@@ -63,3 +63,76 @@ SELECT FORMAT(S.TransactionTimestamp, 'yyyy-MM') AS SalesMonth,
 FROM Sales S
 GROUP BY FORMAT(S.TransactionTimestamp, 'yyyy-MM');
 ```
+#### 5. Who are the top customers by sales volume, and how does their purchase history evolve?
+```
+WITH CustomerSales AS (
+    SELECT C.CustomerID, C.CustomerName, SUM(S.SalesAmount) AS TotalSales
+    FROM Sales S
+    JOIN Customer C ON S.CustomerID = C.CustomerID
+    GROUP BY C.CustomerID, C.CustomerName
+)
+SELECT CustomerID, CustomerName, TotalSales, 
+       RANK() OVER (ORDER BY TotalSales DESC) AS CustomerRank,
+       LAG(TotalSales) OVER (ORDER BY TotalSales DESC) AS PreviousCustomerSales
+FROM CustomerSales;
+```
+#### 6 How do education levels and occupations influence purchasing behavior, ranked by total sales?
+```
+SELECT C.EducationLevel, C.Occupation, SUM(S.SalesAmount) AS TotalSales,
+       RANK() OVER (PARTITION BY C.EducationLevel ORDER BY SUM(S.SalesAmount) DESC) AS OccupationRank
+FROM Sales S
+JOIN Customer C ON S.CustomerID = C.CustomerID
+GROUP BY C.EducationLevel, C.Occupation;
+```
+#### 7 What are the most frequent reasons for returns, and how do they impact sales performance?
+```
+SELECT SRR.ReturnReason, COUNT(SRR.TransactionID) AS ReturnCount, SUM(S.SalesAmount) AS ImpactedSales,
+       RANK() OVER (ORDER BY COUNT(SRR.TransactionID) DESC) AS ReasonRank
+FROM SalesReturnReason SRR
+JOIN Sales S ON SRR.TransactionID = S.TransactionID
+GROUP BY SRR.ReturnReason;
+```
+#### 8 How do discounts influence total sales during specific periods, with trends across the discount periods?
+```
+WITH DiscountedSales AS (
+    SELECT DP.StartDate, DP.EndDate, SUM(S.SalesAmount) AS DiscountedSales
+    FROM DiscountPeriod DP
+    JOIN Sales S ON DP.CustomerID = S.CustomerID
+    GROUP BY DP.StartDate, DP.EndDate
+)
+SELECT StartDate, EndDate, DiscountedSales,
+       LAG(DiscountedSales) OVER (ORDER BY StartDate) AS PreviousPeriodSales
+FROM DiscountedSales;
+```
+#### 9 What are the trends in product defects and returns, and how do shipment errors affect return rates?
+
+```
+SELECT P.ProductName, 
+       COUNT(CASE WHEN SRR.ProductDefect = 1 THEN 1 END) AS DefectReturns, 
+       COUNT(CASE WHEN SRR.ShipmentError = 1 THEN 1 END) AS ShipmentErrors,
+       RANK() OVER (ORDER BY COUNT(CASE WHEN SRR.ProductDefect = 1 THEN 1 END) DESC) AS DefectRank,
+       LAG(COUNT(CASE WHEN SRR.ProductDefect = 1 THEN 1 END)) OVER (ORDER BY COUNT(CASE WHEN SRR.ProductDefect = 1 THEN 1 END) DESC) AS PreviousDefectRank
+FROM SalesReturnReason SRR
+JOIN Sales S ON SRR.TransactionID = S.TransactionID
+JOIN Product P ON S.ProductID = P.ProductID
+WHERE SRR.ProductDefect = 1 OR SRR.ShipmentError = 1
+GROUP BY P.ProductName;
+```
+##### 10 How do customers' return behaviors change over time, and what is the overall impact on product categories?
+```
+WITH CustomerReturns AS (
+    SELECT C.CustomerID, C.CustomerName, 
+           COUNT(SRR.TransactionID) AS ReturnCount,
+           FORMAT(S.TransactionTimestamp, 'yyyy-MM') AS ReturnMonth
+    FROM SalesReturnReason SRR
+    JOIN Sales S ON SRR.TransactionID = S.TransactionID
+    JOIN Customer C ON S.CustomerID = C.CustomerID
+    GROUP BY C.CustomerID, C.CustomerName, FORMAT(S.TransactionTimestamp, 'yyyy-MM')
+)
+SELECT CustomerID, CustomerName, ReturnMonth, ReturnCount,
+       LAG(ReturnCount) OVER (PARTITION BY CustomerID ORDER BY ReturnMonth) AS PreviousMonthReturns
+FROM CustomerReturns;
+```
+
+
+

@@ -1,8 +1,8 @@
 # ` Sales Performance and Customer Behavior Analysis`
 ### Table of Content 
   - [Project Overview](#project-overview)
-  - [Data Model](#data-model)
   - [Project Requirements](#project-requirements)
+  - [Data Model](#data-model)
   - [Business Questions and Answers](#business-questions-and-answers)
   - [Insights and Recommendations](#insights-and-recommendations)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------

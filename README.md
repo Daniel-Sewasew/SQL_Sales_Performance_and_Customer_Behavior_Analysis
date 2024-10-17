@@ -2,6 +2,7 @@
 ### Table of Content 
   - [Project Overview](#project-overview)
   - [Data Model](#data-model)
+  - [Project Requirements](#project-requirements)
   - [Business Questions and Answers](#business-questions-and-answers)
   - [Insights and Recommendations](#insights-and-recommendations)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------

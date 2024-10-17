@@ -2,18 +2,17 @@
 ### Project Overview:
 The purpose of this project is to analyze sales performance and customer behavior using SQL. The dataset consists of five interconnected tables: Customer, DiscountPeriod, Product, Sales, and SalesReturnReason. This project will focus on understanding critical metrics like sales trends, customer segmentation, return reasons, and discount effectiveness. The goal is to derive actionable insights that can improve business strategies.
 ### Project Requirements:
-- It highly encouraged the use of window analytic functions to improve code efficiency, i.e.
-ROW_NUMBER, RANK, SUM, MAX, LAG, LAST_VALUE, etc.
-- It discourages the use of the SELECT DISTINCT keyword phrase. This phrase is not required to 
-answer any questions.
-- It's highly discouraged the use of keywords that restrict the number of records returned, i.e., TOP, ROWCOUNT, 
-FIRST, SAMPLE. These keywords are not required to answer any questions.
-- All answers should be written using a single ANSI SQL statement. No procedural SQL will be accepted as a 
-valid answer.
-- Subqueries or CTEs are acceptable and will be necessary for some responses.
-- Understand joins, aggregations, filtering, and grouping in SQL.
-- Clear documentation of SQL scripts and interpretation of results.
-- Presentation of insights with recommendations based on the analysis.
+- Using window analytic functions, such as ROW_NUMBER, RANK, SUM, MAX, LAG, and LAST_VALUE, to improve code efficiency is highly encouraged.
+- The use of the SELECT DISTINCT keyword is discouraged, as it is not required to answer any questions.
+- Using keywords that restrict the number of records returned, such as TOP, ROWCOUNT, FIRST, and SAMPLE, is highly discouraged and unnecessary when answering questions.
+- Subqueries or CTEs are acceptable and may be necessary for some responses.
+- Present joins, aggregations, filtering, and grouping using readable SQL.
+- Provide clear documentation of SQL scripts and interpretation of results.
+- Deliver meaningful insights with recommendations based on the analysis.
+### Data Model 
+
+![DataModel ](https://github.com/user-attachments/assets/516c349d-84a7-4149-a59d-41c5542a9f18)
+
 ### Business Questions and Answers:
  #### 1. What are the total sales per product category, and how do they rank within each category?
 ```
@@ -133,6 +132,14 @@ SELECT CustomerID, CustomerName, ReturnMonth, ReturnCount,
        LAG(ReturnCount) OVER (PARTITION BY CustomerID ORDER BY ReturnMonth) AS PreviousMonthReturns
 FROM CustomerReturns;
 ```
+### Insights & Recommendations:
+- Insight: Certain product categories, like electronics, show higher return rates month over month, indicating potential issues with product quality.
+- Recommendation: Introduce more robust quality control measures for these products to reduce returns.
 
+- Insight: Customers who use discounts tend to make larger cumulative purchases but have higher return rates. 
+- Recommendation: Implement customer education initiatives during discount periods to reduce returns and improve satisfaction.
+
+- Insight: Shipment errors contribute significantly to returns, particularly for international shipments. 
+- Recommendation: Review and optimize the logistics and shipping processes to reduce errors.
 
 

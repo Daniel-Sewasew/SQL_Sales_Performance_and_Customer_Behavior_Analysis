@@ -4,8 +4,11 @@
   ##### [Data Model](#data-model)
   ##### [Business Questions and Answers](#business-questions-and-answers)
   ##### [Insights and Recommendations](#insights-and-recommendations)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Project Overview:
 The purpose of this project is to analyze sales performance and customer behavior using SQL. The dataset consists of five interconnected tables: Customer, DiscountPeriod, Product, Sales, and SalesReturnReason. This project will focus on understanding critical metrics like sales trends, customer segmentation, return reasons, and discount effectiveness. The goal is to derive actionable insights that can improve business strategies.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Project Requirements:
 - Using window analytic functions, such as ROW_NUMBER, RANK, SUM, MAX, LAG, and LAST_VALUE, to improve code efficiency is highly encouraged.
 - The use of the SELECT DISTINCT keyword is discouraged, as it is not required to answer any questions.
@@ -14,10 +17,12 @@ The purpose of this project is to analyze sales performance and customer behavio
 - Present joins, aggregations, filtering, and grouping using readable SQL.
 - Provide clear documentation of SQL scripts and interpretation of results.
 - Deliver meaningful insights with recommendations based on the analysis.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Data Model 
 
 ![DataModel ](https://github.com/user-attachments/assets/516c349d-84a7-4149-a59d-41c5542a9f18)
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Business Questions and Answers:
  #### 1. What are the total sales per product category, and how do they rank within each category?
 ```
@@ -137,6 +142,7 @@ SELECT CustomerID, CustomerName, ReturnMonth, ReturnCount,
        LAG(ReturnCount) OVER (PARTITION BY CustomerID ORDER BY ReturnMonth) AS PreviousMonthReturns
 FROM CustomerReturns;
 ```
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Insights & Recommendations:
 - Insight: Certain product categories, like electronics, show higher return rates month over month, indicating potential issues with product quality.
 - Recommendation: Introduce more robust quality control measures for these products to reduce returns.

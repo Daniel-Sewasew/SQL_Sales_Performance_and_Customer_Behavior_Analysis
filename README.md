@@ -1,9 +1,9 @@
 # Sales Performance and Customer Behavior Analysis
 ### Table of Content 
-  ##### [Project Overview](#project-overview)
-  ##### [Data Model](#data-model)
-  ##### [Business Questions and Answers](#business-questions-and-answers)
-  ##### [Insights and Recommendations](#insights-and-recommendations)
+  - ##### [Project Overview](#project-overview)
+  - ##### [Data Model](#data-model)
+  - ##### [Business Questions and Answers](#business-questions-and-answers)
+  - ##### [Insights and Recommendations](#insights-and-recommendations)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Project Overview:
 The purpose of this project is to analyze sales performance and customer behavior using SQL. The dataset consists of five interconnected tables: Customer, DiscountPeriod, Product, Sales, and SalesReturnReason. This project will focus on understanding critical metrics like sales trends, customer segmentation, return reasons, and discount effectiveness. The goal is to derive actionable insights that can improve business strategies.

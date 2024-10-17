@@ -24,7 +24,7 @@ The purpose of this project is to analyze sales performance and customer behavio
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Business Questions and Answers:
-##### Note: Please compare your answers with the output file attached to the document (Output_File_for_Reference). 
+##### Note: Please compare your answers with the output file attached in the document section (Output_File_for_Reference). 
  #### 1. What are the total sales per product category, and how do they rank within each category?
 ```
 WITH ProductSales AS (

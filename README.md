@@ -153,4 +153,8 @@ FROM CustomerReturns;
 - Insight: Shipment errors contribute significantly to returns, particularly for international shipments. 
 - Recommendation: Review and optimize the logistics and shipping processes to reduce errors.
 
+### Tools Used
+- SQL Server Management Studio - SSMS
+- Excel
+
 

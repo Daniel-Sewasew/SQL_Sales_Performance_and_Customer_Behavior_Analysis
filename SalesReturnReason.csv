@@ -1,0 +1,20 @@
+SalesReturnReasonID,TransactionID,ReturnReason,ProductDefect,ShipmentError,CustomerError
+1092,8891,Customer Misordered,N,N,Y
+1093,9679,Defective Product,Y,N,N
+1094,12003,Defective Product,Y,N,N
+1095,12925,Wrong Color Sent,N,Y,N
+1096,22029,Wrong Size Sent,N,Y,N
+1097,23511,Wrong Color Sent,N,Y,N
+1098,23888,Wrong Color Sent,N,Y,N
+1099,23888,Wrong Size Sent,N,Y,N
+1100,31861,Customer Misordered,N,N,Y
+1101,32092,Wrong Color Sent,N,Y,N
+1102,33336,Defective Product,Y,N,N
+1103,33794,Wrong Color Sent,N,Y,N
+1104,40192,Wrong Color Sent,N,Y,N
+1105,49902,Defective Product,Y,N,N
+1106,51641,Customer Misordered,N,N,Y
+1107,51694,Defective Product,Y,N,N
+1108,53222,Wrong Color Sent,N,Y,N
+1109,56259,Wrong Color Sent,N,Y,N
+1110,58340,Wrong Color Sent,N,Y,N

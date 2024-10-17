@@ -19,7 +19,7 @@ The purpose of this project is to analyze sales performance and customer behavio
 - Provide clear documentation of SQL scripts and interpretation of results.
 - Deliver meaningful insights with recommendations based on the analysis.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### Data Model 
+### Data Model:
 
 ![DataModel ](https://github.com/user-attachments/assets/516c349d-84a7-4149-a59d-41c5542a9f18)
 

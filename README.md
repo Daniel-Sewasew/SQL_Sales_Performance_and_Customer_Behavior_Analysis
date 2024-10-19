@@ -27,7 +27,7 @@ The purpose of this project is to analyze sales performance and customer behavio
 ### Business Questions and Answers:
 ##### Note: Please compare your answers with the  - <a href = "https://github.com/Daniel-Sewasew/SQL_Sales_Performance_and_Customer_Behavior_Analysis/blob/main/Output_File_for_Reference.docx">Output File</a>
  #### 1. What are the total sales per product category, and how do they rank within each category?
-```
+```sql
 WITH ProductSales AS (
     SELECT P.ProductCategory, P.ProductSubCategory, SUM(S.SalesAmount) AS TotalSales
     FROM Sales S
@@ -37,10 +37,10 @@ WITH ProductSales AS (
 SELECT ProductCategory, ProductSubCategory, TotalSales,
        RANK() OVER (PARTITION BY ProductCategory ORDER BY TotalSales DESC) AS CategoryRank
 FROM ProductSales;
+```
 
-```
 #### 2. What is the cumulative total sales per customer over time, and how has discount usage impacted their purchasing?
-```
+```sql
 SELECT C.CustomerID, C.CustomerName, S.TransactionTimestamp, S.SalesAmount,
        SUM(S.SalesAmount) OVER (PARTITION BY C.CustomerID ORDER BY S.TransactionTimestamp) AS CumulativeSales,
        LAG(DP.DiscountRate) OVER (PARTITION BY C.CustomerID ORDER BY DP.StartDate) AS PreviousDiscount
@@ -50,7 +50,7 @@ LEFT JOIN DiscountPeriod DP ON C.CustomerID = DP.CustomerID;
 
 ```
 #### 3. Which product categories and subcategories have the highest return rates, and how do these rates change over time?
-```
+```sql
 WITH ReturnRates AS (
     SELECT P.ProductCategory, 
            COUNT(SRR.TransactionID) AS ReturnCount, 
@@ -67,7 +67,7 @@ SELECT ProductCategory, SalesMonth,
 FROM ReturnRates;
 ```
 #### 4. What are the monthly sales trends and their month-over-month changes?
-```
+```sql
 SELECT FORMAT(S.TransactionTimestamp, 'yyyy-MM') AS SalesMonth, 
        SUM(S.SalesAmount) AS MonthlySales,
        SUM(S.SalesAmount) - LAG(SUM(S.SalesAmount)) OVER (ORDER BY FORMAT(S.TransactionTimestamp, 'yyyy-MM')) AS MoMChange
@@ -75,7 +75,7 @@ FROM Sales S
 GROUP BY FORMAT(S.TransactionTimestamp, 'yyyy-MM');
 ```
 #### 5. Who are the top customers by sales volume, and how does their purchase history evolve?
-```
+```sql
 WITH CustomerSales AS (
     SELECT C.CustomerID, C.CustomerName, SUM(S.SalesAmount) AS TotalSales
     FROM Sales S
@@ -88,7 +88,7 @@ SELECT CustomerID, CustomerName, TotalSales,
 FROM CustomerSales;
 ```
 #### 6 How do education levels and occupations influence purchasing behavior, ranked by total sales?
-```
+```sql
 SELECT C.EducationLevel, C.Occupation, SUM(S.SalesAmount) AS TotalSales,
        RANK() OVER (PARTITION BY C.EducationLevel ORDER BY SUM(S.SalesAmount) DESC) AS OccupationRank
 FROM Sales S
@@ -96,7 +96,7 @@ JOIN Customer C ON S.CustomerID = C.CustomerID
 GROUP BY C.EducationLevel, C.Occupation;
 ```
 #### 7 What are the most frequent reasons for returns, and how do they impact sales performance?
-```
+```sql
 SELECT SRR.ReturnReason, COUNT(SRR.TransactionID) AS ReturnCount, SUM(S.SalesAmount) AS ImpactedSales,
        RANK() OVER (ORDER BY COUNT(SRR.TransactionID) DESC) AS ReasonRank
 FROM SalesReturnReason SRR
@@ -104,7 +104,7 @@ JOIN Sales S ON SRR.TransactionID = S.TransactionID
 GROUP BY SRR.ReturnReason;
 ```
 #### 8 How do discounts influence total sales during specific periods, with trends across the discount periods?
-```
+```sql
 WITH DiscountedSales AS (
     SELECT DP.StartDate, DP.EndDate, SUM(S.SalesAmount) AS DiscountedSales
     FROM DiscountPeriod DP
@@ -116,8 +116,7 @@ SELECT StartDate, EndDate, DiscountedSales,
 FROM DiscountedSales;
 ```
 #### 9 What are the trends in product defects and returns, and how do shipment errors affect return rates?
-
-```
+```sql
 SELECT P.ProductName, 
        COUNT(CASE WHEN SRR.ProductDefect = 1 THEN 1 END) AS DefectReturns, 
        COUNT(CASE WHEN SRR.ShipmentError = 1 THEN 1 END) AS ShipmentErrors,
@@ -130,7 +129,7 @@ WHERE SRR.ProductDefect = 1 OR SRR.ShipmentError = 1
 GROUP BY P.ProductName;
 ```
 ##### 10 How do customers' return behaviors change over time, and what is the overall impact on product categories?
-```
+```sql
 WITH CustomerReturns AS (
     SELECT C.CustomerID, C.CustomerName, 
            COUNT(SRR.TransactionID) AS ReturnCount,
